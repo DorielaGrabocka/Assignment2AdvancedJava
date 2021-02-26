@@ -1,0 +1,156 @@
+/*Header styles*/
+body {
+    margin: 0;
+    padding: 0;
+    background-color: whitesmoke;
+    color: #716052;
+    background-size: cover;
+    background-position: center;
+    font-family: "Arial";
+    font-size: 12px;
+    text-align: center;
+}
+
+.header{
+    position: relative;
+    z-index: 10;
+    overflow: hidden;
+    background-color: #d3cbbf;
+    width: 100%;
+    border: 1px solid transparent;
+    height: 50px;
+}
+
+.logo{
+    width: 132px;
+    height: 15px;
+    margin-left: 10px;
+    float: left;
+}
+
+.menus{
+    float:right;
+    display: inline-block;
+}
+
+.menus .pages {
+    display: inline-block;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    display: inline;
+}
+
+li {
+    list-style: none;
+    float: right;
+    display: inline;
+}
+
+.pages {
+    display: block;
+    color: #716052;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.pages:hover {
+    background-color: white;
+}
+
+/*Index Styles*/
+
+
+.home {
+    text-align: center;
+}
+
+.title{
+    padding: 30px;
+    font-weight: bold;
+    font-size: 25px;
+}
+
+/*CRUD PAGES Styles*/
+
+.insert {
+    float:left;
+    width:30%;
+    margin-left: 30px;
+    height: 100%;
+}
+
+.view {
+    margin-top: 10px;
+    margin-right: 30px;
+    float: right;
+    width:90%;
+    margin-left: 50%;
+}
+
+.form-control{
+    width:200px;
+    margin: 6px;
+}
+
+.btn {
+    margin-top:10px;
+}
+
+.table{
+    overflow-y: scroll;
+}
+
+.error {
+    margin-top: 5px;
+    color: red;
+    width: 70%;
+}
+
+
+
+.reviewBtn{
+    position:absolute;
+    margin-top:60px;
+    margin-right: 30%;
+    transform: translate(-65%,-40%);
+}
+
+/*My Reviews Style*/
+
+
+.components{
+    font-weight: bold;
+    font-size: 14px;
+
+
+.reviewBtn{
+    position:absolute;
+    margin-top:60px;
+    margin-right: 30%;
+    transform: translate(-65%,-40%);
+}
+
+/*My Reviews Style*/
+
+.myReviews{
+    margin: auto;
+
+}
+
+}
+
+/*My Profile Style*/
+.profileDetails{
+    margin:auto;
+    
+}
+
+.profileDetails .btn {
+    margin-left: 105%;
+}

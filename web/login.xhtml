@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Login</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></link>
+        <h:outputStylesheet name="styles.css" library="css"/>
+    </h:head>
+    <h:body styleClass="body">
+        <h:panelGrid styleClass="image">
+            <h:graphicImage name="read.jpg" styleClass="read" library="images"></h:graphicImage>
+        </h:panelGrid>
+        <h:panelGrid styleClass="container" >
+            <h:graphicImage name="logo.png" library="images" styleClass="logo"/>
+            <h:form>
+                <h:outputText value="E-Mail:"/>
+                <h:inputText required="true"
+                             requiredMessage="Enter E-Mail"
+                             validatorMessage="Please enter the email as example@provider.com"
+                             styleClass="fields"
+                             class="form-control" id="emailInputText"
+                             value="#{loginBean.email}">
+                    <f:validateRegex pattern="\w+([+-.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"/>
+                </h:inputText> 
+                <h:message id="emailMessage" for="emailInputText" styleClass="error"/>
+                <br/>
+                <h:outputText value="Password:"/>
+                <h:inputSecret id="passInputText" required="true"
+                               requiredMessage="Enter Password"
+                               styleClass="fields"
+                               class="form-control"
+                               value="#{loginBean.password}">
+                </h:inputSecret>
+                <h:message id="passwordMessage" for="passInputText" styleClass="error"/>
+                <br/>
+                <h:panelGrid columns="2" styleClass="buttonsGrid">
+                    <h:commandButton class="btn btn-default" value="Login" action="#{loginBean.login()}">
+                    </h:commandButton> 
+                    <h:link class="btn btn-default" value="Back to Index" outcome="indexSimple">
+                    </h:link> 
+                </h:panelGrid>
+                <h:outputText value="#{loginBean.outputMessage}" styleClass="error" id="errorMessage"/>
+            </h:form> 
+        </h:panelGrid>
+    </h:body>
+</html>

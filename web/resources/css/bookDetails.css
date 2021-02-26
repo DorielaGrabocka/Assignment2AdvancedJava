@@ -1,0 +1,87 @@
+/*Book Details Styles*/
+
+.details{
+    background-color:#d3cbbf;
+    float:left;
+    width:300px;
+    margin-left: 200px;
+    margin-top: 100px;
+    margin-right:20px;
+    border-radius: 20px;
+    height: 100%;
+    padding: 30px;
+}
+
+.info{
+    padding:20px;
+}
+
+.reviews{
+    margin-top: 10px;
+    margin-right: 30px;
+    float: right;
+    width:500px;
+    margin-left: 50%;
+}
+
+.components{
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.form-control{
+    margin:auto;
+    resize: none;
+    width: 300px;
+    height: 100px;
+}
+
+.labels{
+    margin-bottom: 5px;
+}
+
+.stars{
+    position: relative;
+    margin-top: 10px;
+    top:55%;
+    transform: translate(-60%, +160%) rotateY(180deg);
+    display: inline-block;
+}
+
+.radios{
+    margin-top:5px;
+    font-size: 20px;
+    color: #716052;
+    transition: 0.3s all;
+    direction: ltr;
+}
+
+.radios:hover{
+    color: #d3cbbf;
+    text-decoration: none;
+}
+
+.b1:hover ~ .radios{
+    color: #d3cbbf;
+    text-decoration: none;
+}
+
+.b2:hover ~ .radios{
+    color: #d3cbbf;
+    text-decoration: none;
+}
+
+.b3:hover ~ .radios{
+    color: #d3cbbf;
+    text-decoration: none;
+}
+
+.b4:hover ~ .radios{
+    color: #d3cbbf;
+    text-decoration: none;
+}
+
+.b5:hover ~ .radios{
+    color: #d3cbbf;
+    text-decoration: none;
+}

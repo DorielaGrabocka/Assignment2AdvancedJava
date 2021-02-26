@@ -1,0 +1,191 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>The Booker</title>
+        <h:outputStylesheet library="css" name="styles.css"/>
+        <h:outputStylesheet library="css" name="template.css"/>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
+    </h:head>
+    <h:body>
+        <h:panelGroup class="top-part">
+            <h:panelGrid styleClass="header" columns="2">
+            <h:graphicImage name="logo.png" library="images" styleClass="logo"></h:graphicImage>
+            <h:panelGrid styleClass="menus" columns="9">
+                <ul>
+                    <h:link styleClass="pages" outcome="login">Log in</h:link>
+                </ul>
+            </h:panelGrid>
+        </h:panelGrid>
+            <h1>Welcome to the Booker</h1>
+            
+        </h:panelGroup>
+        <h:panelGroup class="bottom-part">
+            <h:panelGroup class="stats">
+                <h:panelGroup class="last5">
+                    <h3>Last 5 added books</h3>
+                    <ui:repeat value="#{indexBean.fillLastFive()}" var="book">
+                                <div class="book">
+                                    <h:graphicImage alt="thumbnail" 
+                                                    name="book.png" 
+                                                    library="thumbnails"
+                                                    styleClass="img-thumbnail"></h:graphicImage>
+                                    <h:outputText value="Rank: "/>                
+                                    <h:outputText value="#{indexBean.rankLast}." styleClass="rank"/>
+                                    <br/>
+                                    <h:outputText value="Title: "/>
+                                    <h:form>
+                                        <h:commandLink value="#{book.title}" 
+                                                       action="#{bufferSessionBean.saveBookIDFromIndexToDetails(book.id)}" 
+                                                       styleClass="book-title">
+                                            <f:param name="bookID" value="#{book.id}"/>
+                                        </h:commandLink></h:form>
+                                    <br/>
+                                    <h:outputText value="Average Rating: "/>
+                                    <h:outputText value="#{indexBean.getAverageRating(book.id)}" styleClass="rating"/>
+                                    <br/>
+                                    <h:form>
+                                        <h:commandLink action="#{indexBean.addReview()}">Add Review
+                                            <f:param name="bookID" value="#{b.id}"/>
+                                            <!--f:param name="addReview" value="true"/-->
+                                        </h:commandLink>
+                                    </h:form>
+                                </div>
+                            </ui:repeat>
+                </h:panelGroup>
+                <h:panelGroup class="top5">
+                    <h3>Top 5 rated books</h3>
+                            <ui:repeat value="#{indexBean.fillTopFive()}" var="book1">
+                                <div class="book">
+                                    <h:graphicImage alt="thumbnail" 
+                                                    name="book.png" 
+                                                    library="thumbnails"
+                                                    styleClass="img-thumbnail"></h:graphicImage>
+                                    
+                                    <h:outputText value="Rank: "/>
+                                    <h:outputText value="#{indexBean.rankTop}." styleClass="rank"/>
+                                    <br/>
+                                    <h:outputText value="Title: "/>
+                                    <h:form>
+                                        <h:commandLink value="#{book1.title}" 
+                                                       action="#{bufferSessionBean.saveBookIDFromIndexToDetails(book1.id)}" 
+                                                       styleClass="book-title">
+                                            <f:param name="bookID" value="#{book1.id}"/>
+                                        </h:commandLink></h:form>
+                                    <br/>
+                                    <h:outputText value="Rating: "/>
+                                    <h:outputText value="#{indexBean.getAverageRating(book1.id)}" styleClass="rating"/>
+                                    <br/>
+                                    <h:form>
+                                        <h:commandLink action="#{indexBean.addReview()}">Add Review
+                                            <f:param name="bookID" value="#{b.id}"/>
+                                            <!--f:param name="addReview" value="true"/-->
+                                        </h:commandLink>
+                                    </h:form>
+                                </div>
+                            </ui:repeat>
+                </h:panelGroup>
+                
+                
+                <h:panelGrid class="books" columns="2">
+                    <h1>All Books</h1>
+                    <h:outputText value=""/>
+                    <h:panelGrid styleClass="allBooks" id="allBooksData">
+                        
+                            <ui:repeat var="b" value="#{bookBean.listOfBooks}">
+                                <div class="book" >
+                                    <h:graphicImage alt="thumbnail" 
+                                                    name="book.png" 
+                                                    library="thumbnails"
+                                                    styleClass="img-thumbnail"
+                                                    ></h:graphicImage>
+
+                                    <h:outputText value="Title: "/>
+                                    <h:form>
+                                        <h:commandLink value="#{b.title}" 
+                                                       action="#{bufferSessionBean.saveBookIDFromIndexToDetails(b.id)}" 
+                                                       styleClass="book-title">
+                                            <f:param name="bookID" value="#{b.id}"/>
+                                        </h:commandLink></h:form>
+                                    <br/>
+                                    <h:outputText value="Rating: "/>
+                                    <h:outputText value="#{indexBean.getAverageRating(b.id)}" styleClass="rating"/>
+                                    <br/>
+                                    <h:form>
+                                        <h:commandLink action="#{indexBean.addReview()}">Add Review
+                                            <f:param name="bookID" value="#{b.id}"/>
+                                            <!--f:param name="addReview" value="true"/-->
+                                        </h:commandLink>
+                                    </h:form>
+                                    
+                                </div>
+                            </ui:repeat>
+                    </h:panelGrid>
+                    <h:panelGrid styleClass="indexSearch">
+                        <h:form styleClass="filters">
+                            <h1>Search Filters</h1>
+                            <h:form>
+                                <h:panelGrid columns="4">
+
+                                    <h:outputText value="Title"/>
+                                    <h:inputText value="#{bookBean.searchTitle}" id="titleInp"
+                                                 class="form-control"/>
+                                    <h:outputText value="Author"/>
+                                    <h:inputText value="#{bookBean.searchAuthor}" id="authorInp"
+                                                 class="form-control"/>
+                                    <h:outputText value="Avg Max"/>
+                                    <h:selectOneMenu value="#{bookBean.searchMax}" id="maxInp"
+                                                     class="form-control">
+                                        <f:selectItem itemValue="" itemLabel=""/>
+                                        <f:selectItem itemValue="1" itemLabel="1"/>
+                                        <f:selectItem itemValue="2" itemLabel="2"/>
+                                        <f:selectItem itemValue="3" itemLabel="3"/>
+                                        <f:selectItem itemValue="4" itemLabel="4"/>
+                                        <f:selectItem itemValue="5" itemLabel="5"/>
+                                    </h:selectOneMenu>
+                                    <h:outputText value="Avg Min"/>
+                                    <h:selectOneMenu value="#{bookBean.searchMin}" id="minInp"
+                                                     class="form-control">
+                                        <f:selectItem itemValue="" itemLabel=""/>
+                                        <f:selectItem itemValue="1" itemLabel="1"/>
+                                        <f:selectItem itemValue="2" itemLabel="2"/>
+                                        <f:selectItem itemValue="3" itemLabel="3"/>
+                                        <f:selectItem itemValue="4" itemLabel="4"/>
+                                        <f:selectItem itemValue="5" itemLabel="5"/>
+                                    </h:selectOneMenu>
+
+
+                                    <h:outputText value="Genre"/>
+                                    <h:inputText value="#{bookBean.searchGenre}" id="genreInp"
+                                                 class="form-control"/>
+                                    <h:outputText value=""/>
+
+                                    <h:outputText value=""/>
+
+                                    <h:outputText value=""/>
+                                    <h:commandButton value="Search" action="#{bookBean.searchBooks()}"
+                                                     styleClass="btn btn-default">
+                                        <f:ajax execute="titleInp authorInp maxInp minInp genreInp" 
+                                                render="allBooksData searchMsg"/>
+                                    </h:commandButton>
+                                    <h:commandButton  value="Show All" action="#{bookBean.getAll()}"
+                                                      styleClass="btn btn-default">
+                                        <f:ajax render="allBooksData"/>
+                                    </h:commandButton>
+                                    <h:outputText value="#{bookBean.searchMessage}" id="searchMsg"/>
+                                    <h:outputText value=""/>
+                                </h:panelGrid>
+                            </h:form>
+                        </h:form>
+                    </h:panelGrid>
+                </h:panelGrid>
+                
+            </h:panelGroup>   
+        </h:panelGroup>
+    </h:body>
+</html>
+

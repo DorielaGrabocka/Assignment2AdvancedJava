@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8'?><!-- Published by JAX-WS RI at http://jax-ws.dev.java.net. RI's version is JAX-WS RI 2.2-hudson-740-. --><xs:schema xmlns:tns="http://API/" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="http://API/">
+
+<xs:element name="book" type="tns:book" />
+
+<xs:element name="filterBooks" type="tns:filterBooks" />
+
+<xs:element name="filterBooksResponse" type="tns:filterBooksResponse" />
+
+<xs:element name="hello" type="tns:hello" />
+
+<xs:element name="helloResponse" type="tns:helloResponse" />
+
+<xs:complexType name="filterBooks">
+<xs:sequence>
+<xs:element name="title" type="xs:string" minOccurs="0" />
+<xs:element name="author" type="xs:string" minOccurs="0" />
+<xs:element name="genre" type="xs:string" minOccurs="0" />
+<xs:element name="minAverageRating" type="xs:int" />
+<xs:element name="maxAverageRating" type="xs:int" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="filterBooksResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:book" minOccurs="0" maxOccurs="unbounded" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="book">
+<xs:sequence>
+<xs:element name="author" type="xs:string" minOccurs="0" />
+<xs:element name="genre" type="xs:string" minOccurs="0" />
+<xs:element name="id" type="xs:int" minOccurs="0" />
+<xs:element name="publicationYear" type="xs:string" minOccurs="0" />
+<xs:element name="publishingHouse" type="xs:string" minOccurs="0" />
+<xs:element name="status" type="xs:string" minOccurs="0" />
+<xs:element name="synopsis" type="xs:string" minOccurs="0" />
+<xs:element name="title" type="xs:string" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="hello">
+<xs:sequence>
+<xs:element name="name" type="xs:string" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="helloResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+</xs:schema>

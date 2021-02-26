@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <f:metadata> 
+            <f:event listener="#{loginBean.isUserLoggedIn('admin')}" type="preRenderView"/>
+        </f:metadata>
+        <title>Books | Admin</title>
+        <h:outputStylesheet name="template.css" library="css"/>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></link>
+    </h:head>
+    <h:body styleClass="body">
+        <h:panelGrid styleClass="header" columns="2">
+            <h:graphicImage name="logo.png" library="images" styleClass="logo"></h:graphicImage>
+            <h:panelGrid styleClass="menus" columns="10">
+                <ul>
+                    <li><h:link styleClass="pages" outcome="indexAdmin">Home</h:link></li>
+                    <li><h:link styleClass="pages" outcome="profile">My Profile</h:link></li>
+                    <li><h:link styleClass="pages" outcome="usersPage">Users</h:link></li>
+                    <li><h:link styleClass="pages" outcome="booksPage">Books</h:link></li>
+                    <li><h:form><h:commandLink value="Log out" action="#{loginBean.logOut()}" styleClass="pages" /></h:form></li>
+                </ul>
+            </h:panelGrid>
+        </h:panelGrid>
+
+        <h:panelGrid styleClass="page" columns="2">
+            <h:form>
+                <h3>Insert Book</h3>
+                <h:panelGrid styleClass="insert" columns="2">
+
+                    <h:outputText value="Title:" />
+                    <h:inputText id="titleInputText" required="true"
+                                 requiredMessage="Enter Title!"
+                                 class="form-control"
+                                 value="#{bookBean.title}"/>
+                    <h:outputText value="Author:" />
+                    <h:inputText id="authorInputText" required="true"
+                                 requiredMessage="Enter Author!"
+                                 class="form-control"
+                                 value="#{bookBean.author}"/>
+                    <h:outputText value="Publishing House:" />
+                    <h:inputText id="pubhouseInputText" required="true"
+                                 requiredMessage="Enter Publishing House!"
+                                 class="form-control"
+                                 value="#{bookBean.publishingHouse}"/>
+                    <h:outputText value="Publication Year:" />
+                    <h:inputText id="yearInputText" required="true"
+                                 requiredMessage="Enter Year!"
+                                 class="form-control"
+                                 value="#{bookBean.publicationYear}"/>
+                    <h:outputText value="Genre:" />
+                    <h:inputText id="genreInputText" required="true"
+                                 requiredMessage="Enter Genre!"
+                                 class="form-control"
+                                 value="#{bookBean.genre}"/>
+                    <h:outputText value="Synopsis:" />
+                    <h:inputText id="synopsisInputText" 
+                                 class="form-control"
+                                 value="#{bookBean.synopsis}"/>
+                    <h:commandButton value="Save" action="#{bookBean.upsert()}" styleClass="btn btn-default"/> 
+                    <h:commandButton value="Update" action="#{bookBean.edit()}" styleClass="btn btn-default"/><br/>
+                    <h:outputText value=""/>
+                    <h:outputText value="#{bookBean.outputMessage}" styleClass="error"/>
+                </h:panelGrid>
+            </h:form>
+            <h:panelGrid styleClass="view">
+                <h3>Books</h3>
+                <h:dataTable var="b" value="#{bookBean.getAll()}" styleClass="table table-striped">
+                    <h:column> 
+                        <f:facet name="header">ID</f:facet>
+                        <h:outputText value="#{b.id}"/>   
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Operation</f:facet>
+                        <h:form>
+                            <h:commandLink action="#{bookBean.fillData()}" styleClass="icons"><span class="glyphicon glyphicon-pencil"></span>
+                                <f:param name="bookId" value="#{b.id}"/></h:commandLink> |
+                            <h:commandLink action="#{bookBean.delete()}" styleClass="icons"><span class="glyphicon glyphicon-trash"></span>
+                            <f:param name="bookId" value="#{b.id}"/></h:commandLink>
+                        </h:form>
+                    </h:column>
+                    <h:column> 
+                        <f:facet name="header">Title</f:facet>
+                        <h:outputText value="#{b.title}"/>   
+                    </h:column>
+                    <h:column> 
+                        <f:facet name="header">Author</f:facet>
+                        <h:outputText value="#{b.author}"/>   
+                    </h:column>
+                    <h:column> 
+                        <f:facet name="header">Publishing House</f:facet>
+                        <h:outputText value="#{b.publishingHouse}"/>   
+                    </h:column>
+                    <h:column> 
+                        <f:facet name="header">Publication Year</f:facet>
+                        <h:outputText value="#{b.publicationYear}"/>   
+                    </h:column>
+                    <h:column> 
+                        <f:facet name="header">Date Added</f:facet>
+                        <h:outputText value="#{b.dateAdded}"/>   
+                    </h:column>
+                    <h:column> 
+                        <f:facet name="header">Synopsis</f:facet>
+                        <h:outputText value="#{b.synopsis}"/>   
+                    </h:column>
+                </h:dataTable>
+            </h:panelGrid>
+        </h:panelGrid>
+    </h:body>
+</html>
+

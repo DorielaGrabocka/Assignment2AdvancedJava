@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <f:metadata> 
+            <f:event listener="#{loginBean.isUserLoggedIn('standard')}" type="preRenderView"/>
+        </f:metadata>
+        <title>The Booker | My Reviews</title>
+        <h:outputStylesheet library="css" name="styles.css"/>
+        <h:outputStylesheet library="css" name="template.css"/>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></link>
+    </h:head>
+    <h:body>
+        <h:panelGrid styleClass="header" columns="2">
+            <h:graphicImage name="logo.png" library="images" styleClass="logo"></h:graphicImage>
+            <h:panelGrid styleClass="menus" columns="9">
+                <ul>
+                    <li><h:outputText styleClass="pages" value="#{loginBean.user.name} #{loginBean.user.surname}"/></li>
+                    <li><h:link styleClass="pages" outcome="indexStandard">Home</h:link></li>
+                    <li><h:link styleClass="pages" outcome="profile">My Profile</h:link></li>
+                    <li><h:form><h:commandLink styleClass="pages" value="Log out" action="#{loginBean.logOut()}" /></h:form></li>    
+                </ul>
+            </h:panelGrid>
+        </h:panelGrid>
+        
+        <h:panelGrid styleClass="myReviews">
+                <h3>My Reviews</h3>
+
+                <h:dataTable var="r" value="#{myReviewsBean.getReviews()}"
+                             styleClass="table table-striped">
+                     <h:column> 
+                        <f:facet name="header">Book</f:facet>
+                        <h:outputText value="#{myReviewsBean.getBookTitle(r.reviewPK.bookID)}"/>   
+                    </h:column>
+                    <h:column> 
+                        <f:facet name="header">Comment</f:facet>
+                        <h:outputText value="#{r.text}"/>   
+                    </h:column>
+                    <h:column> 
+                        <f:facet name="header">Rating</f:facet>
+                        <h:outputText value="#{r.rating}"/>   
+                    </h:column>
+                    <h:column> 
+                        <f:facet name="header">Remove</f:facet>
+                        <h:form>
+                            <h:commandLink action="#{myReviewsBean.removeReview(r.reviewPK.userID,r.reviewPK.bookID)}"  
+                                           styleClass="icons"
+                                           onclick="if (!confirm('Remove review?'))
+                                                       return false;"
+                                           >
+                                <f:param name="bookID" value="#{r.reviewPK.bookID}"/>
+                                <span class="glyphicon glyphicon-trash"></span>
+                            </h:commandLink>
+                        </h:form>
+                    </h:column>
+                </h:dataTable>
+        </h:panelGrid>
+    </h:body>
+</html>
+

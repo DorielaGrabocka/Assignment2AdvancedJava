@@ -1,0 +1,107 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Book Details</title>
+        <h:outputStylesheet name="template.css" library="css"/>
+        <h:outputStylesheet name="bookDetails.css" library="css"/>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></link>
+        <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
+    </h:head>
+    <h:body>
+        <f:metadata>
+            <f:viewParam name="bookID" value="#{bufferSessionBean.bookIDFromIndexToDetails}" />
+            <f:event type="preRenderView" listener="#{bookDetailsBean.init}" />
+        </f:metadata>
+        <h:panelGrid styleClass="body" columns="2">
+            <h:panelGrid styleClass="details" columns="1">
+                <h3>Book Details</h3>
+                <h:outputText value="Title:" styleClass="components"/>
+                <h:outputText styleClass="info" value="#{bookDetailsBean.book.title}"/>
+                <h:outputText  value="Author:" styleClass="components"/>
+                <h:outputText styleClass="info" value="#{bookDetailsBean.book.author}"/>
+                <h:outputText value="Publishing House:" styleClass="components"/>
+                <h:outputText styleClass="info" value="#{bookDetailsBean.book.publishingHouse}"/>
+                <h:outputText value="Publication Year:" styleClass="components"/>
+                <h:outputText styleClass="info" value="#{bookDetailsBean.book.publicationYear}"/>
+                <h:outputText value="Genre:" styleClass="components"/>
+                <h:outputText styleClass="info" value="#{bookDetailsBean.book.genre}"/>
+                <h:outputText value="Date Added:" styleClass="components"/>
+                <h:outputText styleClass="info" value="#{bookDetailsBean.book.dateAdded}"/>
+                <h:outputText value="Average Rating:" styleClass="components"/>
+                <h:outputText id ="avgRating" styleClass="info" value="#{bookDetailsBean.averageRating}"/>
+                <h:outputText value="Synopsis:" styleClass="components"/>
+                <h:outputText styleClass="info" value="#{bookDetailsBean.book.synopsis}"/>
+            </h:panelGrid>
+
+            <h:panelGrid styleClass="reviews">
+                <h3>Book Reviews</h3>
+
+                <h:dataTable var="r" value="#{bookDetailsBean.getReviews()}"
+                             styleClass="table table-striped"
+                             id="reviewsTable">
+                    <h:column> 
+                        <f:facet name="header">Comment</f:facet>
+                        <h:outputText value="#{r.text}"/>   
+                    </h:column>
+
+                    <h:column> 
+                        <f:facet name="header">Rating</f:facet>
+                        <h:outputText value="#{r.rating}"/>   
+                    </h:column>
+                    <h:column> 
+                        <f:facet name="header">User</f:facet>
+                        <h:outputText value="#{bookDetailsBean.getFullName(r.reviewPK.userID)}"/>   
+                    </h:column>
+                    <h:column> 
+                        <f:facet name="header">Remove</f:facet>
+                        <h:form>
+                            <h:commandLink action="#{bookDetailsBean.removeReview(r.reviewPK.userID,r.reviewPK.bookID)}" 
+                                           rendered="#{r.reviewPK.userID eq bookDetailsBean.getCurrentUser().id}" 
+                                           styleClass="icons"
+                                           onclick="if (!confirm('Remove review?'))
+                                                       return false;">
+                                <f:param name="bookID" value="#{r.reviewPK.bookID}"/>
+                                <span class="glyphicon glyphicon-trash"></span>
+                                <f:ajax render="reviewsTable resultOp avgRating"/>
+                            </h:commandLink>
+                        </h:form>
+                    </h:column>
+                </h:dataTable>
+                <h:outputText value="#{bookDetailsBean.outputText}" id="resultOp"/>
+                <h:form>
+                    <h3>Add Review</h3>
+                    <h:outputText value="Comment:" styleClass="labels"/>
+                    <h:inputTextarea id="commentTextArea" value="#{bookDetailsBean.comment}" 
+                                     styleClass="form-control"/>
+                    
+                    <h:outputText value="Rating:" styleClass="labels"/>
+                    <h:selectOneMenu required="true"
+                                     requiredMessage="Please provide a rating"
+                                     class="form-control"
+                                     id="rating"
+                                     value="#{bookDetailsBean.rating}">
+                        <f:selectItem itemLabel="1" itemValue="1"/>
+                        <f:selectItem itemLabel="2" itemValue="2"/>
+                        <f:selectItem itemLabel="3" itemValue="3"/>
+                        <f:selectItem itemLabel="4" itemValue="4"/>
+                        <f:selectItem itemLabel="5" itemValue="5"/>
+                    </h:selectOneMenu>
+                    <h:message for="rating" id="ratingError"/>
+
+                    <h:commandButton styleClass="btn btn-default" value="Add review" action="#{bookDetailsBean.addReview()}">
+                        <f:ajax execute="commentTextArea rating" 
+                                render="ratingError rating 
+                                        commentTextArea resultOp 
+                                        avgRating reviewsTable"/>
+                    </h:commandButton>
+                    <h:commandButton styleClass="btn btn-default" 
+                                     value="Back to Index" action="#{bookDetailsBean.goBack()}"/>
+                </h:form>
+            </h:panelGrid>
+        </h:panelGrid>
+    </h:body>
+</html>
+
